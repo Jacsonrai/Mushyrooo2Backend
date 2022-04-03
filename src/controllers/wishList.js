@@ -16,7 +16,12 @@ exports.addWishList=(req,res)=>{
                             }
                           }
                      }
-                 )   
+                 ).exec((err,_wish)=>{
+                    if (err) return res.status(400).json({ err });
+                    if (_wish) {
+                      return res.status(201).json({ wish: _wish});
+                    }
+                 })  
             }else{
                 Wish.findByIdAndUpdate(
                     {user:req.user._id},
@@ -25,7 +30,12 @@ exports.addWishList=(req,res)=>{
                             wishItems:req.body.wishItems
                         }
                     }
-                    )
+                    ).exec((err,_wish)=>{
+                        if (err) return res.status(400).json({ err });
+                        if (_wish) {
+                          return res.status(201).json({ wish: _wish });
+                        }
+                    })
             }
         }
         else{

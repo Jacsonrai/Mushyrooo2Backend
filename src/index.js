@@ -40,6 +40,7 @@ const port = process.env.PORT || 5000;
 //middleware from body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}))
 //expose image in server
 app.use('/public',express.static(path.join(__dirname,'uploads')))
 //for cross policy

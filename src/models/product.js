@@ -14,14 +14,14 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    offers: {
-      type: Number,
+    promoCode: {
+      type: String,
     },
-    productPicture:{type: String }
+    productPicture:{type: String,required:true}
     ,
     quantity:{
         type:Number,
-        required:true
+        
     },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User",required:true },
     review: [

@@ -32,7 +32,7 @@ exports.singUp = (req, res) => {
 };
 exports.singIn = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
-    if (error) return res.status(400).json({ error });
+    if (error) return res.status(400).json({ msg:error });
     if (user) {
       if (user.authenticate(req.body.password) && user.role === "admin") {
         const token = jwt.sign(

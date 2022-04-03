@@ -70,3 +70,26 @@ exports.getAddedItemCart=async(req,res)=>{
     })
 }
 
+exports.removeCartItem=async(req,res)=>{
+  const{product}=req.body
+  if(product){
+    Cart.updateOne(
+    {user:req.user._id},
+    {
+      $pull:{
+        cartItems:{
+          product:product
+        }
+      }
+    }
+    ).exec((err,result)=>{
+      if (err) return res.status(400).json({ err });
+      if(result){
+        res.status(202).json({result})
+      }
+    })
+  }
+
+
+}
+

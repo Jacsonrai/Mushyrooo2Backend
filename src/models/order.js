@@ -11,6 +11,9 @@ const orderSchema=new mongoose.Schema({
     },
    studentCard:{type: String },
     orderItems:[{type:Object}],
+    productId:{type:String},
+    quantity:{type:Number},
+    price:{type:Number},
    address:{
         type:String,
         // required:true

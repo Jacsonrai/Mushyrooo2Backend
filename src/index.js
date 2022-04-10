@@ -12,6 +12,7 @@ const cartRoute=require('./Routes/cart')
 const orderRoute=require('./Routes/order')
 const cookieParser=require('cookie-parser')
 const wishRoute=require('./Routes/wish')
+const roleModel=require('./Routes/rolemodel')
 const cors=require("cors")
 const path=require('path')
 //env configuration
@@ -65,6 +66,9 @@ app.use('/api',cartRoute)
 app.use('/api',orderRoute)
 //wish routing
 app.use('/api',wishRoute)
+//model routing
+app.use('/api',roleModel)
+
 app.get('/',(req,res)=>{
   res.status(200).json({
     message:"welcome to my app"

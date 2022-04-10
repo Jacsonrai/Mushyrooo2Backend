@@ -5,7 +5,7 @@ const env = require("dotenv");
 env.config();
 
 exports.createOrder = async (req, res) => {
-  const { name, address, contact } = req.body;
+  const { name, address, contact} = req.body;
   let studentUrl;
   if (req.file) {
     studentUrl = `${process.env.BASE_URL}/public/` + req.file.filename;
@@ -34,7 +34,7 @@ exports.getOrder = (req, res) => {
     }
     if (orders) {
       return res.status(200).json({
-        data: orders,
+         orders,
       });
     }
   });

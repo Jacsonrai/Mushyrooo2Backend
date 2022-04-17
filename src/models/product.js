@@ -24,12 +24,7 @@ const productSchema = new mongoose.Schema(
         
     },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User",required:true },
-    review: [
-      { 
-        userId:{type:mongoose.Schema.Types.ObjectId, ref: "User"},
-       review: String
-     },
-    ],
+    review:{type:Number},
     category: {type:mongoose.Schema.Types.ObjectId, ref: "User",required:true},
     upDateAt: Date,
   },

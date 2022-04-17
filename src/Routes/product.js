@@ -1,6 +1,6 @@
 const express = require("express");
 const { requireSignin, adminMiddleware } = require("../controllers/common-middleware");
-const { createProduct, getProduct, getProductById, getSigleProduct } = require("../controllers/product");
+const { createProduct, getProduct, getProductById, getSigleProduct, searchProduct, createProductReview } = require("../controllers/product");
 const multer=require("multer")
 const router = express.Router();
 const shortId=require("shortid")
@@ -24,5 +24,7 @@ router.post('/product/create',requireSignin,adminMiddleware,upload.single('produ
 router.get('/product/getproduct',getProduct)
 router.get('/product/getproductbyid',getProductById)
 router.get('/product/productdetails',getSigleProduct)
+router.get('/product/search',searchProduct)
+router.post('/product/productreview',createProductReview)
 
 module.exports = router;

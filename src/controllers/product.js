@@ -67,3 +67,38 @@ exports.getSigleProduct = (req, res) => {
     }
   });
 };
+exports.searchProduct = (req, res) => {
+  Product.find({ name: req.query.name }).exec((err, data) => {
+    if (err) return res.status(400).json({ err });
+    if (data) {
+      return res.status(200).json({
+        data: data,
+      });
+    }
+  });
+};
+exports.createProductReview=async(req,res)=>{
+  Product.findOne({_id:req.body._id}).exec((err,product) => {
+    if (err) {
+      return res.status(400).json({ err });
+    }
+   if(product){
+    const review=req.body.review
+    Product.updateOne({
+      _id:req.body._id
+    },
+    {
+      $push:{
+        review:review
+      }
+    }).exec((err, _review) => {
+      if (err) return res.status(400).json({ err });
+      if (_review) {
+        return res.status(201).json({ _review});
+      }
+    });
+   }
+    
+  
+  });
+}

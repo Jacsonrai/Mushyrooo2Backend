@@ -6,8 +6,8 @@ env.config();
 
 exports.createProduct = (req, res) => {
   // res.status(200).json({file:req.files,body:req.body})
-  const { name, price, category, quantity,promoCode} = req.body;
- 
+  const { name, price, category, quantity, promoCode } = req.body;
+
   let productUrl;
   if (req.file) {
     productUrl = `${process.env.BASE_URL}/public/` + req.file.filename;
@@ -77,28 +77,19 @@ exports.searchProduct = (req, res) => {
     }
   });
 };
-exports.createProductReview=async(req,res)=>{
-  Product.findOne({_id:req.body._id}).exec((err,product) => {
-    if (err) {
-      return res.status(400).json({ err });
+exports.createProductReview = async (req, res) => {
+  Product.findOne(req.params.id).exec((err, review) => {
+    if (err) return res.status(400).json({ err });
+    if (review) {
+      Product.updateOne(
+        { _id: req.params.id },
+       
+      ).exec((err, _review) => {
+        if (err) return res.status(400).json({ err });
+        if (_review) {
+          return res.status(201).json({_review});
+        }
+      });
     }
-   if(product){
-    const review=req.body.review
-    Product.updateOne({
-      _id:req.body._id
-    },
-    {
-      $push:{
-        review:review
-      }
-    }).exec((err, _review) => {
-      if (err) return res.status(400).json({ err });
-      if (_review) {
-        return res.status(201).json({ _review});
-      }
-    });
-   }
-    
-  
   });
-}
+};

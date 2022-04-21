@@ -7,7 +7,7 @@ const orderSchema=new mongoose.Schema({
     },
     name:{
         type:String,
-        // required:true
+        required:true
     },
    studentCard:{type: String },
     orderItems:[{type:Object}],
@@ -16,11 +16,11 @@ const orderSchema=new mongoose.Schema({
     // price:{type:Number},
    address:{
         type:String,
-        // required:true
+        required:true
     },
     contact:{
         type:String,
-        // required:true
+        required:true
     }
 }, { timestamps: true })
 module.exports=mongoose.model("Orders",orderSchema)

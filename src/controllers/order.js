@@ -14,7 +14,7 @@ exports.createOrder = async (req, res) => {
     user: req.user._id,
     name,
     orderItems: [req.body.orderItems],
-    studentCard: studentUrl,
+    studentCard: studentUrl||null,
     contact,
     address,
   });

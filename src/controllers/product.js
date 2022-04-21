@@ -6,7 +6,7 @@ env.config();
 
 exports.createProduct = (req, res) => {
   // res.status(200).json({file:req.files,body:req.body})
-  const { name, price, category, quantity, promoCode } = req.body;
+  const { name, price, category, quantity, promoCode,review } = req.body;
 
   let productUrl;
   if (req.file) {
@@ -17,6 +17,7 @@ exports.createProduct = (req, res) => {
     price: price,
     productPicture: productUrl,
     promoCode,
+    review:1||review,
     category,
     quantity,
     createdBy: req.user._id,
@@ -77,19 +78,29 @@ exports.searchProduct = (req, res) => {
     }
   });
 };
-exports.createProductReview = async (req, res) => {
-  Product.findOne(req.params.id).exec((err, review) => {
+exports.createRating = async (req, res) => {
+  Product.findOne({_id:req.query.id}).exec((err, review) => {
     if (err) return res.status(400).json({ err });
-    if (review) {
-      Product.updateOne(
-        { _id: req.params.id },
-       
-      ).exec((err, _review) => {
-        if (err) return res.status(400).json({ err });
-        if (_review) {
-          return res.status(201).json({_review});
-        }
-      });
+    if(review){
+     const rating=req.query.rating
+     Product.findByIdAndUpdate(
+       {_id:req.query.id},
+       {
+         $set:{
+           review:rating
+         }
+       }
+     ).exec((err,_review)=>{
+      if (err) return res.status(400).json({ err });
+      if(_review){
+        return res.status(200).json({
+          _review
+        });
+      }
+
+     })
+
+
     }
-  });
+  })
 };

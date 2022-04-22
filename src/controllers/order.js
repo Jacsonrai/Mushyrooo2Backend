@@ -13,7 +13,7 @@ exports.createOrder = async (req, res) => {
   const order = new Order({
     user: req.user._id,
     name,
-    orderItems: [req.body.orderItems],
+    orderItems: JSON.parse(req.body.orderItems),
     studentCard: studentUrl||null,
     contact,
     address,
